@@ -334,7 +334,7 @@ def compute_honest_gradcam_3d(logit_model, tensor_batch, layer_name="last_conv3d
 
 
 def render_gradcam_3d_interactive(heatmap_3d, coords_pred, is_crack, gt_coords=None):
-    """Rendu volumétrique Grad-CAM 3D pur (sans gaussienne artificielle) dans l'espace [0, 15] mm."""
+    """Rendu volumétrique Grad-CAM 3D pur (sans gaussienne artificielle) avec légende et colorbar séparées."""
     X, Y, Z = np.meshgrid(
         np.linspace(0.0, 15.0, 16, dtype=np.float32),
         np.linspace(0.0, 15.0, 16, dtype=np.float32),
@@ -360,8 +360,12 @@ def render_gradcam_3d_interactive(heatmap_3d, coords_pred, is_crack, gt_coords=N
             surface_count=10,
             colorscale="Jet",
             colorbar=dict(
-                title=dict(text="Grad-CAM Logit", font=dict(color="white")),
-                tickfont=dict(color="white"),
+                title=dict(text="Grad-CAM Logit", font=dict(color="white", size=11)),
+                tickfont=dict(color="white", size=10),
+                len=0.80,
+                y=0.45,
+                thickness=16,
+                x=1.01,
             ),
             name="Activation Grad-CAM 3D",
         )
@@ -402,8 +406,18 @@ def render_gradcam_3d_interactive(heatmap_3d, coords_pred, is_crack, gt_coords=N
         template="plotly_dark",
         paper_bgcolor="#0b0e14",
         plot_bgcolor="#121721",
-        margin=dict(l=0, r=0, b=0, t=30),
+        margin=dict(l=0, r=10, b=0, t=20),
         height=480,
+        legend=dict(
+            x=0.01,
+            y=0.99,
+            xanchor="left",
+            yanchor="top",
+            bgcolor="rgba(18, 23, 33, 0.82)",
+            bordercolor="#2a364f",
+            borderwidth=1,
+            font=dict(color="#e6edf3", size=11),
+        ),
         scene=dict(
             xaxis=dict(title=dict(text="X (mm)", font=dict(color="#00f2fe")), range=[0, 15], backgroundcolor="#121721", gridcolor="#2a364f"),
             yaxis=dict(title=dict(text="Y (mm)", font=dict(color="#00f2fe")), range=[0, 15], backgroundcolor="#121721", gridcolor="#2a364f"),
