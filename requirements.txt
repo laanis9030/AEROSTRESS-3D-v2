@@ -1,8 +1,8 @@
 streamlit>=1.30.0
-torch
-torchvision
+tensorflow
 numpy<2.0.0
 scipy
-gdown
+PyWavelets
+plotly
 matplotlib
-pillow
+gdown
